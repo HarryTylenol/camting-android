@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "132197726015",
+    "firebase_url": "https://cammeet-c4266.firebaseio.com",
+    "project_id": "cammeet-c4266",
+    "storage_bucket": "cammeet-c4266.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132197726015:android:fa9871cc1d82d8d5",
+        "android_client_info": {
+          "package_name": "app.chemistry.camting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132197726015-00opg5hqm6ki7opujr0b7ul6fe5oinh0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.chemistry.camting",
+            "certificate_hash": "d8013b45e77f6e3267bdbd8fa3a2b5e37677ac69"
+          }
+        },
+        {
+          "client_id": "132197726015-i01gdesrtb46ajr92gockss6d2qijcbc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "132197726015-i01gdesrtb46ajr92gockss6d2qijcbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC77usqfOxNY3we4LPt-2YWt7z-_ACzRMg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132197726015-i01gdesrtb46ajr92gockss6d2qijcbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "132197726015-6dphgrglbb4ouju3gvtg9kqv27e9dopg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.chemistry.Cammeet"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
