@@ -1,4 +1,5 @@
 import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
+import org.jetbrains.kotlin.gradle.dsl.Coroutines.ENABLE
 
 plugins {
   id("com.android.application")
@@ -39,10 +40,16 @@ repositories {
 dependencies {
   implementation(project(":cache"))
   implementation(project(":data"))
-  implementation(project(":networking"))
+  implementation(project(":network"))
   implementation(project(":domain"))
 
   projectConfiguration.appLibraries.dependencies.forEach { dependenciesImplements(it) }
+}
+
+kotlin {
+  experimental {
+    coroutines = ENABLE
+  }
 }
 
 apply {

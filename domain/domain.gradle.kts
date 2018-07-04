@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.Coroutines.ENABLE
+
 plugins {
   id("kotlin")
   kotlin("kapt")
@@ -15,4 +17,10 @@ configurations.all {
 
 dependencies {
   projectConfiguration.domainLibraries.dependencies.forEach { dependenciesImplements(it) }
+}
+
+kotlin {
+  experimental {
+    coroutines = ENABLE
+  }
 }

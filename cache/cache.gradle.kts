@@ -1,5 +1,6 @@
 import org.gradle.internal.impldep.bsh.commands.dir
 import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
+import org.jetbrains.kotlin.gradle.dsl.Coroutines.ENABLE
 
 plugins {
   id("com.android.library")
@@ -34,4 +35,10 @@ android {
 dependencies {
   implementation(project(":data"))
   projectConfiguration.cacheLibraries.dependencies.forEach { dependenciesImplements(it) }
+}
+
+kotlin {
+  experimental {
+    coroutines = ENABLE
+  }
 }

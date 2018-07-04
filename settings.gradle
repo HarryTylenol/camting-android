@@ -1,5 +1,5 @@
 rootProject.buildFileName = 'build.gradle.kts'
-include ':app', ':domain', ':buildSrc', ':networking', ':cache', ':data'
+include ':app', ':domain', ':buildSrc', ':network', ':cache', ':data'
 rootProject.children.each { subproject ->
     subproject.buildFileName = "${subproject.name}.gradle.kts"
 }

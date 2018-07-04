@@ -10,5 +10,7 @@ interface ScreenLayoutComponent<T> : AnkoComponent<T> {
   val layoutContext: T
   fun inflate(context: Context): View = this.createView(AnkoContext.create(context, layoutContext))
   val createView: AnkoContext<T>.() -> View
+
   override fun createView(ui: AnkoContext<T>) = ui.createView()
+
 }

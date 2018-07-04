@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Camting</string>
+    <string name="facebook_application_id" translatable="false">2122926201286705</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb2122926201286705</string>
 </resources>

@@ -33,8 +33,8 @@ android {
 }
 
 dependencies {
-  implementation(project(":domain"))
-  projectConfiguration.dataLibraries.dependencies.forEach { dependenciesImplements(it) }
+  implementation(project(":data"))
+  projectConfiguration.networkLibraries.dependencies.forEach { dependenciesImplements(it) }
 }
 
 kotlin {

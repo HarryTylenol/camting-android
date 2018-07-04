@@ -4,7 +4,7 @@ import app.chemistry.camting.di.App
 import app.chemistry.camting.di.factories.ActivitiesInjectorFactories
 import app.chemistry.camting.di.factories.FragmentsInjectorFactories
 import app.chemistry.camting.di.modules.AppModule
-import app.chemistry.networking.NetworkingModule
+import app.chemistry.network.di.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -15,7 +15,8 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ActivitiesInjectorFactories::class,
     FragmentsInjectorFactories::class,
-    NetworkingModule::class,
+    CacheModule::class,
+    NetworkModule::class,
     AppModule::class
 ))
 interface AppComponent {

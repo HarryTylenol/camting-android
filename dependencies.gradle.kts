@@ -16,6 +16,7 @@ import Dependencies_gradle.Versions.versionCode
 import Dependencies_gradle.Versions.versionName
 
 var projectConfiguration: ProjectConfiguration by extra
+var commonConfiguration: Project.() -> Unit by extra
 var dependenciesImplements: Project.(Pair<Int, String>) -> Unit by extra
 
 object Versions {
@@ -55,9 +56,11 @@ object Test {
 
 object Rx {
   const private val rx_java_version = "2.1.14"
+  const private val rx_kotlin_version = "2.2.0"
   const private val rx_android_version = "2.0.2"
 
   const val rxjava = "io.reactivex.rxjava2:rxjava:$rx_java_version"
+  const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
   const val rxandroid = "io.reactivex.rxjava2:rxandroid:$rx_android_version"
   const val rxbinding = "com.jakewharton.rxbinding2:rxbinding:2.1.1"
 }
@@ -79,6 +82,7 @@ object Misc {
   const val realm_extensions = "com.github.vicpinm:krealmextensions:2.2.0"
   const val leakcanary = "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
   const val leakcanary_no_op = "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+  const val facebook_login = "com.facebook.android:facebook-android-sdk:[4,5)"
 }
 
 object Anko {
@@ -114,6 +118,7 @@ object AndroidX {
   const val fragment = "androidx.fragment:fragment:$androidx_version"
   const val recyclerview = "androidx.recyclerview:recyclerview:$androidx_version"
   const val lifecycle = "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+  const val cardview = "androidx.cardview:cardview:$androidx_version"
   const val material_component = "com.google.android.material:material:$material_component_version"
 }
 
@@ -182,6 +187,7 @@ val androidTestLibraries = arrayOf(
 )
 val commonLibraries = arrayOf(
     IMP to Rx.rxjava,
+    IMP to Rx.rxkotlin,
     IMP to Kotlin.kotlin,
     IMP to Kotlin.coroutines,
     IMP to Dagger.dagger,
@@ -198,8 +204,11 @@ val appLibraries = arrayOf(
 
     IMP to AndroidX.appcompat,
     IMP to AndroidX.fragment,
+    IMP to AndroidX.cardview,
     IMP to AndroidX.lifecycle,
     IMP to AndroidX.material_component,
+
+    IMP to Misc.facebook_login,
 
     IMP to Dagger.dagger_android,
     IMP to Dagger.dagger_android_support,
@@ -208,7 +217,7 @@ val appLibraries = arrayOf(
     *androidTestLibraries
 )
 val domainLibraries = arrayOf(*commonLibraries)
-val dataLibraries = arrayOf(*androidTestLibraries)
+val dataLibraries = arrayOf(IMP to Firebase.firebase_firestore, *commonLibraries, *androidTestLibraries)
 val networkLibraries = arrayOf(
     IMP to Firebase.firebase_firestore,
     IMP to Firebase.firebase_storage,
@@ -216,6 +225,7 @@ val networkLibraries = arrayOf(
     IMP to Retrofit.retrofit,
     IMP to Retrofit.retrofit_gson,
     IMP to Misc.retrofit_extensions,
+    IMP to Misc.facebook_login,
     *commonLibraries,
     *androidTestLibraries
 )
@@ -250,4 +260,8 @@ dependenciesImplements = { deps ->
   }
   //  this.dependencies.add()
   this.dependencies.add(config, deps.second)
+}
+
+commonConfiguration = {
+
 }
