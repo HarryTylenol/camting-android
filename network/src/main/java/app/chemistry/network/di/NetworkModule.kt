@@ -13,8 +13,4 @@ class NetworkModule {
   @Singleton
   internal fun provideFirestoreReferenceRepository() = FirestoreReference()
 
-  @Provides
-  @Singleton
-  internal fun provideCamtingSnapshotRepository(frr: FirestoreReference): CamtingSnapshotRepository = CamtingSnapshotRepositoryImp(frr)
-
 }
