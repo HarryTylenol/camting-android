@@ -7,7 +7,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 
-class CamtingSnapshotDataSourceImp(val collectionReference: CollectionReference) :
+open class CamtingSnapshotDataSourceImp(val collectionReference: CollectionReference) :
     CamtingSnapshotDataSource {
 
   override suspend fun requestCamtings(query: Query.() -> Query): List<CamtingData> {
