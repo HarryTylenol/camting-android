@@ -5,5 +5,5 @@ import com.google.firebase.firestore.Query
 
 interface CamtingSnapshotDataSource : CamtingDataSource {
   suspend fun requestCamtings(query: Query.() -> Query): List<CamtingData>
-  suspend fun addCamting(camtingData: CamtingData): Boolean
+  suspend fun addCamting(camtingData: CamtingData)
 }

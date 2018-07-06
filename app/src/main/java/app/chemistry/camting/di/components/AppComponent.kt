@@ -19,9 +19,9 @@ import javax.inject.Singleton
     ActivitiesInjectorFactories::class,
     FragmentsInjectorFactories::class,
     ViewModelInjectorFactories::class,
+    DataModule::class,
     CacheModule::class,
     NetworkModule::class,
-    DataModule::class,
     AppModule::class
 ))
 interface AppComponent {
