@@ -5,7 +5,6 @@ import app.chemistry.data.model.CamtingData
 import app.chemistry.network.util.await
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.SetOptions
 
 open class CamtingSnapshotDataSourceImp(val collectionReference: CollectionReference) :
     CamtingSnapshotDataSource {
@@ -17,8 +16,9 @@ open class CamtingSnapshotDataSourceImp(val collectionReference: CollectionRefer
     }
   }
 
-  override suspend fun addCamting(camtingData: CamtingData) {
-    collectionReference.document().set(camtingData, SetOptions.merge()).await()
+  override suspend fun addCamting(camtingData: CamtingData): Boolean {
+    collectionReference.add(camtingData).await()
+    return true
   }
 
   override suspend fun getCamting(id: String): CamtingData? {

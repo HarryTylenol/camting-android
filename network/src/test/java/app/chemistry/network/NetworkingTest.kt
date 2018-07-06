@@ -29,7 +29,6 @@ class NetworkingTest {
     val result = runBlocking {
       try {
         camtingSnapshotDataSourceImp.addCamting(DummyData.camtingData())
-        true
       } catch (e : Exception) {
         e.printStackTrace()
         false
