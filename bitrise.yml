@@ -27,19 +27,18 @@ workflows:
     - script@1.1.5:
         title: Build APK
         inputs:
-        - content: |-
-            #!/bin/bash
-
-            ./gradlew assembleDebug
+        - content: "#!/bin/bash\n\ncd android \n./gradlew  assembleDebug"
+          opts:
+            is_expand: true
     - script@1.1.5:
         title: Copy apk to deploy
         inputs:
         - content: |-
             #!/bin/bash
-            cp /bitrise/src/android/app/build/outputs/app-debug.apk $BITRISE_SIGNED_APK_PATH $BITRISE_DEPLOY_DIR/app.apk
+            cp $BITRISE_SIGNED_APK_PATH $BITRISE_DEPLOY_DIR/app.apk
     - sign-apk@1.1.1:
         inputs:
-        - apk_path: "/bitrise/src/android/app/build/outputs/app-debug.apk"
+        - apk_path: "/bitrise/src/android/app/build/outputs/apk/app-debug.apk"
 
   _release_apk:
     steps:
@@ -51,19 +50,18 @@ workflows:
     - script@1.1.5:
         title: Build APK
         inputs:
-        - content: |-
-            #!/bin/bash
-
-            ./gradlew assembleRelease
+        - content: "#!/bin/bash\n\ncd android \n./gradlew  assembleRelease"
+          opts:
+            is_expand: true
     - sign-apk@1.1.1:
         inputs:
-        - apk_path: "/bitrise/src/android/app/build/outputs/app-release-unsigned.apk"
+        - apk_path: "/bitrise/src/android/app/build/outputs/apk/app-release-unsigned.apk"
     - script@1.1.5:
         title: Copy apk to deploy
         inputs:
         - content: |-
             #!/bin/bash
-            cp /bitrise/src/android/app/build/outputs/signed-app-release.apk $BITRISE_SIGNED_APK_PATH $BITRISE_DEPLOY_DIR/app.apk
+            cp $BITRISE_SIGNED_APK_PATH $BITRISE_DEPLOY_DIR/app.apk
     - deploy-to-bitrise-io@1.2.9:
         is_always_run: false
         run_if: '{{enveq "RUN_GRADLEW" "1"}}'
