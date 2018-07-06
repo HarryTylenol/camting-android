@@ -23,4 +23,5 @@ class App : Application(), HasActivityInjector {
   override fun activityInjector(): DispatchingAndroidInjector<Activity> {
     return dispatchingAndroidInjector
   }
+
 }

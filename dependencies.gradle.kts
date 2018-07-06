@@ -96,6 +96,7 @@ object Dagger {
   const private val dagger_version = "2.16"
 
   const val dagger = "com.google.dagger:dagger:$dagger_version"
+  const val javax_annotation = "org.glassfish:javax.annotation:10.0-b28"
   const val dagger_compiler = "com.google.dagger:dagger-compiler:$dagger_version"
   const val dagger_android = "com.google.dagger:dagger-android:$dagger_version"
   const val dagger_android_support = "com.google.dagger:dagger-android-support:$dagger_version"
@@ -169,14 +170,11 @@ val gradlePlugins = arrayOf(
     GradlePlugins.kotlin,
     GradlePlugins.realm
 )
-val testLibraries = arrayOf(
-    TEST_KAPT to Dagger.dagger_compiler,
-    TEST_IMP to Test.mockito,
-    TEST_IMP to Test.mockito_kotlin,
-    TEST_IMP to Test.kotlin_junit,
-    TEST_IMP to Test.junit
-)
-val androidTestLibraries = arrayOf(
+
+val androidLib = arrayOf(
+    IMP to Dagger.dagger_android,
+    IMP to Dagger.dagger_android_support,
+    KAPT to Dagger.dagger_android_processor,
     ANDROID_TEST_KAPT to Dagger.dagger_compiler,
     ANDROID_TEST_IMP to Test.espresso,
     ANDROID_TEST_IMP to Test.android_test_runner,
@@ -185,14 +183,19 @@ val androidTestLibraries = arrayOf(
     ANDROID_TEST_IMP to Test.kotlin_junit,
     ANDROID_TEST_IMP to Test.junit
 )
-val commonLibraries = arrayOf(
+val commonLib = arrayOf(
     IMP to Rx.rxjava,
     IMP to Rx.rxkotlin,
     IMP to Kotlin.kotlin,
     IMP to Kotlin.coroutines,
     IMP to Dagger.dagger,
+    IMP to Dagger.javax_annotation,
     KAPT to Dagger.dagger_compiler,
-    *testLibraries
+    TEST_KAPT to Dagger.dagger_compiler,
+    TEST_IMP to Test.mockito,
+    TEST_IMP to Test.mockito_kotlin,
+    TEST_IMP to Test.kotlin_junit,
+    TEST_IMP to Test.junit
 )
 val appLibraries = arrayOf(
     IMP to Rx.rxandroid,
@@ -208,16 +211,17 @@ val appLibraries = arrayOf(
     IMP to AndroidX.lifecycle,
     IMP to AndroidX.material_component,
 
-    IMP to Misc.facebook_login,
-
+    *commonLib,
+    *androidLib
+)
+val domainLibraries = arrayOf(*commonLib)
+val dataLibraries = arrayOf(
+    IMP to Firebase.firebase_firestore,
     IMP to Dagger.dagger_android,
     IMP to Dagger.dagger_android_support,
     KAPT to Dagger.dagger_android_processor,
-    *commonLibraries,
-    *androidTestLibraries
-)
-val domainLibraries = arrayOf(*commonLibraries)
-val dataLibraries = arrayOf(IMP to Firebase.firebase_firestore, *commonLibraries, *androidTestLibraries)
+    *commonLib,
+    *androidLib)
 val networkLibraries = arrayOf(
     IMP to Firebase.firebase_firestore,
     IMP to Firebase.firebase_storage,
@@ -225,20 +229,21 @@ val networkLibraries = arrayOf(
     IMP to Retrofit.retrofit,
     IMP to Retrofit.retrofit_gson,
     IMP to Misc.retrofit_extensions,
-    IMP to Misc.facebook_login,
-    *commonLibraries,
-    *androidTestLibraries
+    *commonLib,
+    *androidLib
 )
 val cacheLibraries = arrayOf(
     IMP to Misc.realm_extensions,
-    *commonLibraries,
-    *androidTestLibraries
+    *commonLib,
+    *androidLib
 )
 
 projectConfiguration = ProjectConfiguration(
-    Android(versionCode, versionName, applicationId, minSdkVersion, targetSdkVersion, compileSdkVersion),
+    JavaVersion.VERSION_1_8,
+    Android(versionCode, versionName, applicationId, minSdkVersion, targetSdkVersion,
+            compileSdkVersion),
     BuildPlugins(*gradlePlugins),
-    CommonLibraries(*commonLibraries),
+    CommonLibraries(*commonLib),
     AppLibraries(*appLibraries),
     DomainLibraries(*domainLibraries),
     DataLibraries(*dataLibraries),

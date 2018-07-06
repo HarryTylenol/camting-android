@@ -13,6 +13,7 @@ configurations.all {
   resolutionStrategy {
     force("org.jetbrains.kotlin:kotlin-stdlib:1.2.50")
   }
+
 }
 
 dependencies {

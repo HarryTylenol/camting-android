@@ -20,5 +20,4 @@ class NetworkModule {
       firestoreReference: FirestoreReference): CamtingSnapshotDataSource =
       CamtingSnapshotDataSourceImp(firestoreReference.getCamtingRef())
 
-
 }

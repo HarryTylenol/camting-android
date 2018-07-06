@@ -13,8 +13,13 @@ val projectConfiguration: ProjectConfiguration by extra
 var dependenciesImplements: Project.(Pair<Int, String>) -> Unit by extra
 
 android {
-
   compileSdkVersion(projectConfiguration.android.compileSdkVersion)
+
+  lintOptions { warning("InvalidPackage") }
+  compileOptions {
+    setSourceCompatibility(projectConfiguration.javaVersion)
+    setTargetCompatibility(projectConfiguration.javaVersion)
+  }
 
   defaultConfig {
     minSdkVersion(projectConfiguration.android.minSdkVersion)
@@ -35,6 +40,7 @@ android {
 dependencies {
   implementation(project(":domain"))
   projectConfiguration.dataLibraries.dependencies.forEach { dependenciesImplements(it) }
+  compileOnly("javax.annotation:jsr250-api:1.0")
 }
 
 kotlin {

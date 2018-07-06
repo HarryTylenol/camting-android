@@ -1,4 +1,7 @@
+import org.gradle.api.JavaVersion
+
 class ProjectConfiguration(
+    val javaVersion : JavaVersion,
     val android: Android,
     val buildPlugins: BuildPlugins,
     val commonLibraries: CommonLibraries,

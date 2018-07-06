@@ -14,6 +14,12 @@ var dependenciesImplements: Project.(Pair<Int, String>) -> Unit by extra
 
 android {
 
+  lintOptions { warning("InvalidPackage") }
+  compileOptions {
+    setSourceCompatibility(projectConfiguration.javaVersion)
+    setTargetCompatibility(projectConfiguration.javaVersion)
+  }
+
   compileSdkVersion(projectConfiguration.android.compileSdkVersion)
   defaultConfig {
     applicationId = projectConfiguration.android.applicationId
