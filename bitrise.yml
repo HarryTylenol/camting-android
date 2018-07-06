@@ -1,0 +1,80 @@
+format_version: "5"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+trigger_map:
+- push_branch: "release"
+  workflow: release
+- push_branch: "*"
+  workflow: debug
+- pull_request_target_branch: "*"
+  workflow: debug
+
+workflows:
+
+  _setup:
+    steps:
+    - activate-ssh-key@3.1.1:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+
+  _slack_message:
+    steps:
+    - slack@2.3.0:
+        inputs:
+        - webhook_url: "https://hooks.slack.com/services/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"
+        - channel: "#ci"
+        - from_username: BitriseCI - $ENVIRONMENT
+        - from_username_on_error: BitriseCI - $ENVIRONMENT
+        - message: "Latest Build for '$GIT_CLONE_COMMIT_MESSAGE_SUBJECT' has succeed in $ENVIRONMENT Environment."
+        - message_on_error: "Latest Build for '$GIT_CLONE_COMMIT_MESSAGE_SUBJECT' has failed in $ENVIRONMENT Environment."
+        - emoji: ":confetti_ball:"
+        - emoji_on_error: ":shrug:"
+    before_run:
+    after_run:
+
+  _debug_apk:
+    steps:
+    - script@1.1.5:
+        title: Set Environment
+        inputs:
+        - content: |-
+            envman add --key ENVIRONMENT --value "DEBUG"
+    - script@1.1.5:
+        title: Build APK
+        inputs:
+        - content: |-
+            #!/bin/bash
+
+            ./gradlew assembleDebug
+
+  _release_apk:
+    steps:
+    - script@1.1.5:
+        title: Set Environment
+        inputs:
+        - content: |-
+            envman add --key ENVIRONMENT --value "RELEASE"
+    - script@1.1.5:
+        title: Build APK
+        inputs:
+        - content: |-
+            #!/bin/bash
+
+            ./gradlew assembleRelease
+    - sign-apk@1.1.1:
+        inputs:
+        - apk_path: "/bitrise/src/android/app/build/outputs/apk/app-release-unsigned.apk"
+
+  release:
+    before_run:
+    - _setup
+    - _release_apk
+    after_run:
+    - _slack_message
+
+  debug:
+    before_run:
+    - _setup
+    - _debug_apk
+    after_run:
+    - _slack_message
