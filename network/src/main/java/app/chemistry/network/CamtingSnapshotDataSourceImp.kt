@@ -17,8 +17,14 @@ open class CamtingSnapshotDataSourceImp(val collectionReference: CollectionRefer
   }
 
   override suspend fun addCamting(camtingData: CamtingData): Boolean {
-    collectionReference.add(camtingData).await()
-    return true
+    try {
+      collectionReference.add(camtingData).await()
+      return true
+    }
+    catch (e: Exception) {
+      e.printStackTrace()
+      return false
+    }
   }
 
   override suspend fun getCamting(id: String): CamtingData? {

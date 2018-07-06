@@ -26,8 +26,8 @@ android {
     targetSdkVersion(projectConfiguration.android.targetSdkVersion)
     versionCode = projectConfiguration.android.versionCode
     versionName = projectConfiguration.android.versionName
+    testInstrumentationRunner  = "android.support.test.runner.AndroidJUnitRunner"
   }
-
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false

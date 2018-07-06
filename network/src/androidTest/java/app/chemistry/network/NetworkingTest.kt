@@ -1,12 +1,12 @@
 package app.chemistry.network
 
+import androidx.test.runner.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.mock
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import kotlin.test.assertEquals
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 
-@RunWith(JUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class NetworkingTest {
 
   private lateinit var camtingSnapshotDataSourceImp: CamtingSnapshotDataSourceImp
@@ -25,16 +25,12 @@ class NetworkingTest {
   }
 
   @Test
-  fun add() {
+  @Throws(Exception::class)
+  fun testAddCamting() {
     val result = runBlocking {
-      try {
-        camtingSnapshotDataSourceImp.addCamting(DummyData.camtingData())
-      } catch (e : Exception) {
-        e.printStackTrace()
-        false
-      }
+      camtingSnapshotDataSourceImp.addCamting(DummyData.camtingData())
     }
-    assertEquals(true, result)
+    assertTrue("Added Camting", result)
   }
 
 }
