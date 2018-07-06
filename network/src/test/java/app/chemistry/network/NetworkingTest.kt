@@ -1,11 +1,12 @@
 package app.chemistry.network
 
 import com.nhaarman.mockitokotlin2.mock
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import kotlin.test.assertEquals
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -25,13 +26,16 @@ class NetworkingTest {
 
   @Test
   fun add() {
-    launch {
+    val result = runBlocking {
       try {
         camtingSnapshotDataSourceImp.addCamting(DummyData.camtingData())
+        true
       } catch (e : Exception) {
         e.printStackTrace()
+        false
       }
     }
+    assertEquals(true, result)
   }
 
 }
